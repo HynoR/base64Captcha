@@ -21,23 +21,7 @@ const (
 	FontWqyMicrohei       = "wqy-microhei.ttc"
 )
 
-func AllFonts() []string {
-	return append(SimpleFonts(), FontWqyMicrohei)
-}
-
-func SimpleFonts() []string {
-	return []string{
-		Font3Dumb,
-		FontApothecaryFont,
-		FontComismsh,
-		FontDENNEthreeDee,
-		FontDeborahFancyDress,
-		FontFlimFlam,
-		FontRitaSmith,
-		FontActionj,
-		FontChromohv,
-	}
-}
+const FontPrefix = "fonts/"
 
 // Private variables for lazy loading
 var (
@@ -54,15 +38,15 @@ var (
 func getFontsSimple() []*truetype.Font {
 	fontsSimpleOnce.Do(func() {
 		fontsSimple = DefaultEmbeddedFonts.LoadFontsByNames([]string{
-			"fonts/3Dumb.ttf",
-			"fonts/ApothecaryFont.ttf",
-			"fonts/Comismsh.ttf",
-			"fonts/DENNEthree-dee.ttf",
-			"fonts/DeborahFancyDress.ttf",
-			"fonts/Flim-Flam.ttf",
-			"fonts/RitaSmith.ttf",
-			"fonts/actionj.ttf",
-			"fonts/chromohv.ttf",
+			FontPrefix + Font3Dumb,
+			FontPrefix + FontApothecaryFont,
+			FontPrefix + FontComismsh,
+			FontPrefix + FontDENNEthreeDee,
+			FontPrefix + FontDeborahFancyDress,
+			FontPrefix + FontFlimFlam,
+			FontPrefix + FontRitaSmith,
+			FontPrefix + FontActionj,
+			FontPrefix + FontChromohv,
 		})
 	})
 	return fontsSimple
@@ -72,7 +56,7 @@ func getFontsSimple() []*truetype.Font {
 // Font is loaded lazily on first call.
 func getFontChinese() *truetype.Font {
 	fontChineseOnce.Do(func() {
-		fontChinese = DefaultEmbeddedFonts.LoadFontByName("fonts/wqy-microhei.ttc")
+		fontChinese = DefaultEmbeddedFonts.LoadFontByName(FontPrefix + FontWqyMicrohei)
 	})
 	return fontChinese
 }
