@@ -61,5 +61,5 @@ func (s StoreSyncMap) Get(id string, clear bool) string {
 // Verify check a string value
 func (s StoreSyncMap) Verify(id, answer string, clear bool) bool {
 	vv := s.Get(id, clear)
-    return strings.EqualFold(vv, answer)
+	return strings.EqualFold(vv, answer)
 }
