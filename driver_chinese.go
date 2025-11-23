@@ -57,7 +57,6 @@ func NewDriverChinese(height int, width int, noiseCount int, showLineOptions int
 	return &DriverChinese{Height: height, Width: width, NoiseCount: noiseCount, ShowLineOptions: showLineOptions, Length: length, Source: source, BgColor: bgColor, fontsStorage: fontsStorage, fontsArray: tfs}
 }
 
-
 // ConvertFonts loads fonts by names
 func (d *DriverChinese) ConvertFonts() *DriverChinese {
 	if d.fontsStorage == nil {
