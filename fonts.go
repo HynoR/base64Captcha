@@ -2,25 +2,89 @@ package base64Captcha
 
 import (
 	"math/rand"
+	"sync"
 
 	"github.com/golang/freetype/truetype"
 )
 
-var fontsSimple = DefaultEmbeddedFonts.LoadFontsByNames([]string{
-	"fonts/3Dumb.ttf",
-	"fonts/ApothecaryFont.ttf",
-	"fonts/Comismsh.ttf",
-	"fonts/DENNEthree-dee.ttf",
-	"fonts/DeborahFancyDress.ttf",
-	"fonts/Flim-Flam.ttf",
-	"fonts/RitaSmith.ttf",
-	"fonts/actionj.ttf",
-	"fonts/chromohv.ttf",
-})
+// Available fonts
+const (
+	Font3Dumb             = "3Dumb.ttf"
+	FontApothecaryFont    = "ApothecaryFont.ttf"
+	FontComismsh          = "Comismsh.ttf"
+	FontDENNEthreeDee     = "DENNEthree-dee.ttf"
+	FontDeborahFancyDress = "DeborahFancyDress.ttf"
+	FontFlimFlam          = "Flim-Flam.ttf"
+	FontRitaSmith         = "RitaSmith.ttf"
+	FontActionj           = "actionj.ttf"
+	FontChromohv          = "chromohv.ttf"
+	FontWqyMicrohei       = "wqy-microhei.ttc"
+)
 
-// var fontemoji = loadFontByName("fonts/seguiemj.ttf")
-var fontsAll = append(fontsSimple, fontChinese)
-var fontChinese = DefaultEmbeddedFonts.LoadFontByName("fonts/wqy-microhei.ttc")
+func AllFonts() []string {
+	return append(SimpleFonts(), FontWqyMicrohei)
+}
+
+func SimpleFonts() []string {
+	return []string{
+		Font3Dumb,
+		FontApothecaryFont,
+		FontComismsh,
+		FontDENNEthreeDee,
+		FontDeborahFancyDress,
+		FontFlimFlam,
+		FontRitaSmith,
+		FontActionj,
+		FontChromohv,
+	}
+}
+
+// Private variables for lazy loading
+var (
+	fontsSimple     []*truetype.Font
+	fontChinese     *truetype.Font
+	fontsAll        []*truetype.Font
+	fontsSimpleOnce sync.Once
+	fontChineseOnce sync.Once
+	fontsAllOnce    sync.Once
+)
+
+// getFontsSimple returns the simple font collection (without Chinese fonts).
+// Fonts are loaded lazily on first call.
+func getFontsSimple() []*truetype.Font {
+	fontsSimpleOnce.Do(func() {
+		fontsSimple = DefaultEmbeddedFonts.LoadFontsByNames([]string{
+			"fonts/3Dumb.ttf",
+			"fonts/ApothecaryFont.ttf",
+			"fonts/Comismsh.ttf",
+			"fonts/DENNEthree-dee.ttf",
+			"fonts/DeborahFancyDress.ttf",
+			"fonts/Flim-Flam.ttf",
+			"fonts/RitaSmith.ttf",
+			"fonts/actionj.ttf",
+			"fonts/chromohv.ttf",
+		})
+	})
+	return fontsSimple
+}
+
+// getFontChinese returns the Chinese font.
+// Font is loaded lazily on first call.
+func getFontChinese() *truetype.Font {
+	fontChineseOnce.Do(func() {
+		fontChinese = DefaultEmbeddedFonts.LoadFontByName("fonts/wqy-microhei.ttc")
+	})
+	return fontChinese
+}
+
+// getFontsAll returns all fonts (simple fonts + Chinese font).
+// Fonts are loaded lazily on first call.
+func getFontsAll() []*truetype.Font {
+	fontsAllOnce.Do(func() {
+		fontsAll = append(getFontsSimple(), getFontChinese())
+	})
+	return fontsAll
+}
 
 // randFontFrom choose random font family.选择随机的字体
 func randFontFrom(fonts []*truetype.Font) *truetype.Font {
@@ -28,8 +92,8 @@ func randFontFrom(fonts []*truetype.Font) *truetype.Font {
 
 	if fontCount == 0 {
 		//loading default fonts
-		fonts = fontsAll
-		fontCount = len(fontsAll)
+		fonts = getFontsAll()
+		fontCount = len(fonts)
 	}
 	index := rand.Intn(fontCount)
 	return fonts[index]
