@@ -1,4 +1,4 @@
-module github.com/hynor/base64Captcha
+module github.com/1panel-dev/base64Captcha
 
 go 1.24.9
 

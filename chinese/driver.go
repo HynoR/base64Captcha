@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"strings"
 
+	"github.com/1panel-dev/base64Captcha"
 	"github.com/golang/freetype/truetype"
-	"github.com/hynor/base64Captcha"
 )
 
 // Driver is a driver of unicode Chinese characters.

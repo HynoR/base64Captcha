@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/hynor/base64Captcha"
+	"github.com/1panel-dev/base64Captcha"
 )
 
 // configJsonBody json request body.
