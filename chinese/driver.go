@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/golang/freetype/truetype"
-	"github.com/mojocn/base64Captcha"
+	"github.com/hynor/base64Captcha"
 )
 
 // Driver is a driver of unicode Chinese characters.
