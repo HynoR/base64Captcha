@@ -15,10 +15,10 @@ import (
 // fonts/actionj.ttf (34.944kB)
 // fonts/chromohv.ttf (45.9kB)
 // fonts/readme.md (162B)
-// fonts/wqy-microhei.ttc (5.177MB)
+// Chinese font moved to chinese/ subpackage
 
 func Test_loadFontByName(t *testing.T) {
-	f := DefaultEmbeddedFonts.LoadFontByName("fonts/wqy-microhei.ttc")
+	f := DefaultEmbeddedFonts.LoadFontByName("fonts/chromohv.ttf")
 	if f == nil {
 		t.Error("failed")
 	}
@@ -45,7 +45,7 @@ func Test_loadFontsByNames(t *testing.T) {
 }
 
 func Test_randFontFrom(t *testing.T) {
-	f := randFontFrom(getFontsAll())
+	f := randFontFrom(getFontsSimple())
 	if f == nil {
 		t.Error("failed")
 	}

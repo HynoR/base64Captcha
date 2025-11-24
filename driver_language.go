@@ -90,31 +90,31 @@ func (d *DriverLanguage) DrawCaptcha(content string) (item Item, err error) {
 
 	//draw hollow line
 	if d.ShowLineOptions&OptionShowHollowLine == OptionShowHollowLine {
-		itemChar.drawHollowLine()
+		itemChar.DrawHollowLine()
 	}
 
 	//draw slime line
 	if d.ShowLineOptions&OptionShowSlimeLine == OptionShowSlimeLine {
-		itemChar.drawSlimLine(3)
+		itemChar.DrawSlimLine(3)
 	}
 
 	//draw sine line
 	if d.ShowLineOptions&OptionShowSineLine == OptionShowSineLine {
-		itemChar.drawSineLine()
+		itemChar.DrawSineLine()
 	}
 
 	//draw noise
 	if d.NoiseCount > 0 {
 		noise := RandText(d.NoiseCount, TxtNumbers+TxtAlphabet+",.[]<>")
-		err = itemChar.drawNoise(noise, fontsAll)
+		err = itemChar.DrawNoise(noise, d.Fonts)
 		if err != nil {
 			return
 		}
 	}
 
 	//draw content
-	//use font that match your language
-	err = itemChar.drawText(content, []*truetype.Font{fontChinese})
+	//use font that match your language (pass d.Fonts from constructor)
+	err = itemChar.DrawText(content, d.Fonts)
 	if err != nil {
 		return
 	}

@@ -47,7 +47,7 @@ func NewDriverMath(height int, width int, noiseCount int, showLineOptions int, b
 	}
 
 	if len(tfs) == 0 {
-		tfs = getFontsAll()
+		tfs = getFontsSimple()
 	}
 
 	return &DriverMath{Height: height, Width: width, NoiseCount: noiseCount, ShowLineOptions: showLineOptions, fontsArray: tfs, BgColor: bgColor, Fonts: fonts}
@@ -65,7 +65,7 @@ func (d *DriverMath) ConvertFonts() *DriverMath {
 		tfs = append(tfs, tf)
 	}
 	if len(tfs) == 0 {
-		tfs = getFontsAll()
+		tfs = getFontsSimple()
 	}
 	d.fontsArray = tfs
 
@@ -112,13 +112,13 @@ func (d *DriverMath) DrawCaptcha(question string) (item Item, err error) {
 
 	//波浪线 比较丑
 	if d.ShowLineOptions&OptionShowHollowLine == OptionShowHollowLine {
-		itemChar.drawHollowLine()
+		itemChar.DrawHollowLine()
 	}
 
 	//背景有文字干扰
 	if d.NoiseCount > 0 {
 		noise := RandText(d.NoiseCount, strings.Repeat(TxtNumbers, d.NoiseCount))
-		err = itemChar.drawNoise(noise, d.fontsArray)
+		err = itemChar.DrawNoise(noise, d.fontsArray)
 		if err != nil {
 			return
 		}
@@ -126,16 +126,16 @@ func (d *DriverMath) DrawCaptcha(question string) (item Item, err error) {
 
 	//画 细直线 (n 条)
 	if d.ShowLineOptions&OptionShowSlimeLine == OptionShowSlimeLine {
-		itemChar.drawSlimLine(3)
+		itemChar.DrawSlimLine(3)
 	}
 
 	//画 多个小波浪线
 	if d.ShowLineOptions&OptionShowSineLine == OptionShowSineLine {
-		itemChar.drawSineLine()
+		itemChar.DrawSineLine()
 	}
 
 	//draw question
-	err = itemChar.drawText(question, d.fontsArray)
+	err = itemChar.DrawText(question, d.fontsArray)
 	if err != nil {
 		return
 	}

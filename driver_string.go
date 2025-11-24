@@ -97,31 +97,31 @@ func (d *DriverString) DrawCaptcha(content string) (item Item, err error) {
 
 	//draw hollow line
 	if d.ShowLineOptions&OptionShowHollowLine == OptionShowHollowLine {
-		itemChar.drawHollowLine()
+		itemChar.DrawHollowLine()
 	}
 
 	//draw slime line
 	if d.ShowLineOptions&OptionShowSlimeLine == OptionShowSlimeLine {
-		itemChar.drawSlimLine(3)
+		itemChar.DrawSlimLine(3)
 	}
 
 	//draw sine line
 	if d.ShowLineOptions&OptionShowSineLine == OptionShowSineLine {
-		itemChar.drawSineLine()
+		itemChar.DrawSineLine()
 	}
 
 	//draw noise
 	if d.NoiseCount > 0 {
 		source := TxtNumbers + TxtAlphabet + ",.[]<>"
 		noise := RandText(d.NoiseCount, strings.Repeat(source, d.NoiseCount))
-		err = itemChar.drawNoise(noise, d.fontsArray)
+		err = itemChar.DrawNoise(noise, d.fontsArray)
 		if err != nil {
 			return
 		}
 	}
 
 	//draw content
-	err = itemChar.drawText(content, d.fontsArray)
+	err = itemChar.DrawText(content, d.fontsArray)
 	if err != nil {
 		return
 	}

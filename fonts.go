@@ -7,7 +7,7 @@ import (
 	"github.com/golang/freetype/truetype"
 )
 
-// Available fonts
+// Available fonts (non-Chinese)
 const (
 	Font3Dumb             = "3Dumb.ttf"
 	FontApothecaryFont    = "ApothecaryFont.ttf"
@@ -18,7 +18,6 @@ const (
 	FontRitaSmith         = "RitaSmith.ttf"
 	FontActionj           = "actionj.ttf"
 	FontChromohv          = "chromohv.ttf"
-	FontWqyMicrohei       = "wqy-microhei.ttc"
 )
 
 const FontPrefix = "fonts/"
@@ -26,11 +25,7 @@ const FontPrefix = "fonts/"
 // Private variables for lazy loading
 var (
 	fontsSimple     []*truetype.Font
-	fontChinese     *truetype.Font
-	fontsAll        []*truetype.Font
 	fontsSimpleOnce sync.Once
-	fontChineseOnce sync.Once
-	fontsAllOnce    sync.Once
 )
 
 // getFontsSimple returns the simple font collection (without Chinese fonts).
@@ -52,31 +47,13 @@ func getFontsSimple() []*truetype.Font {
 	return fontsSimple
 }
 
-// getFontChinese returns the Chinese font.
-// Font is loaded lazily on first call.
-func getFontChinese() *truetype.Font {
-	fontChineseOnce.Do(func() {
-		fontChinese = DefaultEmbeddedFonts.LoadFontByName(FontPrefix + FontWqyMicrohei)
-	})
-	return fontChinese
-}
-
-// getFontsAll returns all fonts (simple fonts + Chinese font).
-// Fonts are loaded lazily on first call.
-func getFontsAll() []*truetype.Font {
-	fontsAllOnce.Do(func() {
-		fontsAll = append(getFontsSimple(), getFontChinese())
-	})
-	return fontsAll
-}
-
 // randFontFrom choose random font family.选择随机的字体
 func randFontFrom(fonts []*truetype.Font) *truetype.Font {
 	fontCount := len(fonts)
 
 	if fontCount == 0 {
 		//loading default fonts
-		fonts = getFontsAll()
+		fonts = getFontsSimple()
 		fontCount = len(fonts)
 	}
 	index := rand.Intn(fontCount)
