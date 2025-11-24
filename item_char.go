@@ -35,8 +35,8 @@ func NewItemChar(w int, h int, bgColor color.RGBA) *ItemChar {
 	return &d
 }
 
-// drawHollowLine draw strong and bold white line.
-func (item *ItemChar) drawHollowLine() *ItemChar {
+// DrawHollowLine draw strong and bold white line.
+func (item *ItemChar) DrawHollowLine() *ItemChar {
 
 	first := item.width / 20
 	end := first * 19
@@ -72,8 +72,8 @@ func (item *ItemChar) drawHollowLine() *ItemChar {
 	return item
 }
 
-// drawSineLine draw a sine line.
-func (item *ItemChar) drawSineLine() *ItemChar {
+// DrawSineLine draw a sine line.
+func (item *ItemChar) DrawSineLine() *ItemChar {
 	var py float64
 
 	//振幅
@@ -116,8 +116,8 @@ func (item *ItemChar) drawSineLine() *ItemChar {
 	return item
 }
 
-// drawSlimLine draw n slim-random-color lines.
-func (item *ItemChar) drawSlimLine(num int) *ItemChar {
+// DrawSlimLine draw n slim-random-color lines.
+func (item *ItemChar) DrawSlimLine(num int) *ItemChar {
 
 	first := item.width / 10
 	end := first * 9
@@ -176,7 +176,7 @@ func (item *ItemChar) drawBeeline(point1 point, point2 point, lineColor color.RG
 	}
 }
 
-func (item *ItemChar) drawNoise(noiseText string, fonts []*truetype.Font) error {
+func (item *ItemChar) DrawNoise(noiseText string, fonts []*truetype.Font) error {
 
 	c := freetype.NewContext()
 	c.SetDPI(imageStringDpi)
@@ -201,9 +201,8 @@ func (item *ItemChar) drawNoise(noiseText string, fonts []*truetype.Font) error 
 	return nil
 }
 
-//drawText draw captcha string to image.把文字写入图像验证码
-
-func (item *ItemChar) drawText(text string, fonts []*truetype.Font) error {
+// DrawText draw captcha string to image.把文字写入图像验证码
+func (item *ItemChar) DrawText(text string, fonts []*truetype.Font) error {
 	c := freetype.NewContext()
 	c.SetDPI(imageStringDpi)
 	c.SetClip(item.nrgba.Bounds())

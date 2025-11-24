@@ -31,7 +31,7 @@ func TestNewItemChar(t *testing.T) {
 	}
 }
 
-func TestItemChar_drawHollowLine(t *testing.T) {
+func TestItemChar_DrawHollowLine(t *testing.T) {
 	tests := []struct {
 		name string
 		item *ItemChar
@@ -41,14 +41,14 @@ func TestItemChar_drawHollowLine(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.item.drawHollowLine(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ItemChar.drawHollowLine() = %v, want %v", got, tt.want)
+			if got := tt.item.DrawHollowLine(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ItemChar.DrawHollowLine() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestItemChar_drawSineLine(t *testing.T) {
+func TestItemChar_DrawSineLine(t *testing.T) {
 	tests := []struct {
 		name string
 		item *ItemChar
@@ -58,14 +58,14 @@ func TestItemChar_drawSineLine(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.item.drawSineLine(); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ItemChar.drawSineLine() = %v, want %v", got, tt.want)
+			if got := tt.item.DrawSineLine(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ItemChar.DrawSineLine() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestItemChar_drawSlimLine(t *testing.T) {
+func TestItemChar_DrawSlimLine(t *testing.T) {
 	type args struct {
 		num int
 	}
@@ -79,8 +79,8 @@ func TestItemChar_drawSlimLine(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.item.drawSlimLine(tt.args.num); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("ItemChar.drawSlimLine() = %v, want %v", got, tt.want)
+			if got := tt.item.DrawSlimLine(tt.args.num); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ItemChar.DrawSlimLine() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -106,7 +106,7 @@ func TestItemChar_drawBeeline(t *testing.T) {
 	}
 }
 
-func TestItemChar_drawNoise(t *testing.T) {
+func TestItemChar_DrawNoise(t *testing.T) {
 	type args struct {
 		noiseText string
 		fonts     []*truetype.Font
@@ -121,14 +121,14 @@ func TestItemChar_drawNoise(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.item.drawNoise(tt.args.noiseText, tt.args.fonts); (err != nil) != tt.wantErr {
-				t.Errorf("ItemChar.drawNoise() error = %v, wantErr %v", err, tt.wantErr)
+			if err := tt.item.DrawNoise(tt.args.noiseText, tt.args.fonts); (err != nil) != tt.wantErr {
+				t.Errorf("ItemChar.DrawNoise() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
 }
 
-func TestItemChar_drawText(t *testing.T) {
+func TestItemChar_DrawText(t *testing.T) {
 	type args struct {
 		text  string
 		fonts []*truetype.Font
@@ -143,8 +143,8 @@ func TestItemChar_drawText(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := tt.item.drawText(tt.args.text, tt.args.fonts); (err != nil) != tt.wantErr {
-				t.Errorf("ItemChar.drawText() error = %v, wantErr %v", err, tt.wantErr)
+			if err := tt.item.DrawText(tt.args.text, tt.args.fonts); (err != nil) != tt.wantErr {
+				t.Errorf("ItemChar.DrawText() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
